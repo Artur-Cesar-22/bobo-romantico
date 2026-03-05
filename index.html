@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu pedido é uma ordem ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff4d6d, #ff99ac);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    background: rgba(0,0,0,0.3);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+button {
+    margin: 10px;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#sim {
+    background: white;
+    color: #ff4d6d;
+}
+
+#nao {
+    background: black;
+    color: white;
+    position: absolute;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+#contador {
+    font-size: 2rem;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="titulo"></h1>
+    <button id="sim">SIM 😍</button>
+    <button id="nao">NÃO 😏</button>
+    <div id="contador"></div>
+</div>
+
+<audio id="musica" loop>
+    <!-- COLOQUE AQUI O LINK DA MÚSICA QUE VOCÊ QUER -->
+    <source src="https://open.spotify.com/intl-pt/track/4d0DpU7Odiv0ztvX2GxJlk?si=5f5fd04bc6ea478a" type="audio/mpeg">
+</audio>
+
+<script>
+const nomeDela = "Heloisa"; // <<< COLOCA O NOME DELA AQUI
+
+const titulo = document.getElementById("titulo");
+const botaoNao = document.getElementById("nao");
+const botaoSim = document.getElementById("sim");
+const contadorDiv = document.getElementById("contador");
+const musica = document.getElementById("musica");
+
+let beijo = 1;
+let tamanho = 1.2;
+
+titulo.innerHTML = nomeDela + ", você manda e eu obedeço. Sexta vai dar certo?❤️";
+
+botaoNao.addEventListener("mouseover", fugir);
+botaoNao.addEventListener("click", () => {
+    aumentarBotao();
+    fugir();
+});
+
+botaoSim.addEventListener("click", () => {
+    musica.play(); // agora toca porque houve interação
+    botaoNao.style.display = "none";
+    botaoSim.style.display = "none";
+    iniciarContador();
+    chuvaDeCoracoes();
+});
+
+function fugir() {
+    const largura = window.innerWidth - 100;
+    const altura = window.innerHeight - 50;
+    botaoNao.style.left = Math.random() * largura + "px";
+    botaoNao.style.top = Math.random() * altura + "px";
+}
+
+function aumentarBotao() {
+    tamanho += 0.3;
+    botaoSim.style.fontSize = tamanho + "rem";
+    botaoSim.style.padding = (12 * tamanho) + "px " + (30 * tamanho) + "px";
+}
+
+function iniciarContador() {
+    const intervalo = setInterval(() => {
+        contadorDiv.innerHTML = "Você vai estar me devendo <b>" + beijo + "</b> beijo" + (beijo > 1 ? "s" : "") + " 😘";
+        beijo++;
+        if (beijo > 20) {
+            clearInterval(intervalo);
+            contadorDiv.innerHTML = "Vou cobrar todos os beijos e demais coisas❤️";
+        }
+    }, 700);
+}
+
+function chuvaDeCoracoes() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 4000);
+    }, 300);
+}
+</script>
+
+</body>
+</html>
