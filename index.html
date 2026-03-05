@@ -101,11 +101,15 @@ botaoNao.addEventListener("click", () => {
 });
 
 botaoSim.addEventListener("click", () => {
-    musica.play(); // agora toca porque houve interação
+
+    musica.currentTime = 30; // começa aos 30 segundos
+    musica.play();
+
     botaoNao.style.display = "none";
     botaoSim.style.display = "none";
     iniciarContador();
     chuvaDeCoracoes();
+});
 });
 
 function fugir() {
@@ -151,5 +155,6 @@ function chuvaDeCoracoes() {
 </body>
 
 </html>
+
 
 
